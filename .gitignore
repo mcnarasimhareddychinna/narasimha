@@ -1,0 +1,7 @@
+# local-only
+originals/
+.claude/
+.vercel/
+__pycache__/
+*.pyc
+tools/og.png

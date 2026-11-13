@@ -391,6 +391,39 @@ button { font: inherit; cursor: pointer; }
 .to-top { display: inline-flex; align-items: center; gap: 6px; padding: 10px 4px; min-height: 44px; font-weight: 800; font-size: 14px; color: var(--primary-ink); text-decoration: none; }
 .to-top .i { transform: rotate(-45deg); }
 
+/* ---------------------------------------------------------------- install app */
+.nav-install { margin-right: -10px; }
+.nav-install[hidden], .menu-install[hidden], .footer-install[hidden] { display: none !important; }
+.menu-install { display: flex; align-items: center; gap: 10px; margin-top: 6px; padding: 13px 16px; border: 0; border-radius: 12px; background: var(--primary-soft); color: var(--primary-ink); font-weight: 800; font-size: 16px; text-align: left; }
+.menu-install .i { width: 20px; height: 20px; }
+.footer-links { display: flex; align-items: center; gap: 8px 18px; flex-wrap: wrap; justify-content: center; }
+.footer-install { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 8px 14px; border-radius: 999px; border: 1.5px solid var(--line-2); background: var(--surface); color: var(--ink); font-weight: 800; font-size: 14px; }
+.footer-install:hover { border-color: var(--primary); color: var(--primary-ink); }
+.install-card { position: fixed; z-index: 70; right: 24px; bottom: 24px; width: min(410px, calc(100% - 32px)); display: grid; grid-template-columns: 56px minmax(0, 1fr); gap: 14px; padding: 20px 20px 18px; border-radius: 22px; background: var(--surface); border: 1px solid var(--line); box-shadow: 0 30px 70px -20px rgba(36, 51, 178, .45), 0 2px 6px rgba(24, 32, 63, .08); animation: install-in .5s var(--ease); }
+.install-card[hidden] { display: none; }
+@keyframes install-in { from { opacity: 0; transform: translateY(24px); } }
+.install-icon { width: 56px; height: 56px; border-radius: 14px; box-shadow: 0 8px 18px -8px rgba(52, 70, 212, .7); }
+.install-close { position: absolute; top: 8px; right: 8px; display: grid; place-items: center; width: 40px; height: 40px; border: 0; border-radius: 12px; background: transparent; color: var(--muted); }
+.install-close:hover { background: var(--canvas); color: var(--ink); }
+.install-kicker { margin: 0 0 2px; padding-right: 34px; font-size: 11.5px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--teal); }
+.install-card h2 { margin: 0 0 6px; padding-right: 30px; font-family: var(--font-display); font-weight: 600; font-size: 19px; line-height: 1.25; }
+.install-text { margin: 0 0 14px; font-size: 14.5px; color: var(--muted); line-height: 1.5; }
+.install-ios { display: grid; gap: 8px; margin: 0 0 14px; }
+.install-ios[hidden] { display: none; }
+.install-ios li { display: flex; align-items: center; gap: 10px; font-size: 14.5px; color: var(--ink); }
+.ios-ico { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 9px; background: var(--primary-soft); color: var(--primary); flex: none; }
+.ios-ico .i { width: 17px; height: 17px; }
+.install-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.install-actions .btn { min-height: 42px; }
+.install-card.ios [data-install-confirm] { display: none; }
+@media (max-width: 960px) { .nav-install { display: none !important; } }
+@media (max-width: 520px) {
+  .install-card { left: 12px; right: 12px; bottom: calc(12px + env(safe-area-inset-bottom)); width: auto; grid-template-columns: 48px minmax(0, 1fr); gap: 12px; padding: 16px 16px 14px; }
+  .install-icon { width: 48px; height: 48px; border-radius: 12px; }
+  .install-actions .btn { flex: 1 1 auto; }
+}
+@media print { .install-card { display: none !important; } }
+
 /* toast */
 .toast { position: fixed; left: 50%; bottom: 24px; z-index: 80; transform: translateX(-50%); padding: 12px 18px; border-radius: 999px; background: var(--primary-ink); color: #fff; font-weight: 700; font-size: 14.5px; box-shadow: var(--shadow-lg); animation: toast .35s var(--ease); }
 @keyframes toast { from { opacity: 0; transform: translate(-50%, 10px); } }

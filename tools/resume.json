@@ -2,16 +2,47 @@
   "name": "NARASIMHA REDDY M C",
   "headline": "HR Recruiter | Talent Acquisition | MBA – Human Resource Management & Marketing",
   "contact": [
-    {"label": "Phone", "text": "+91 83285 01078", "href": "tel:+918328501078"},
-    {"label": "Email", "text": "mcnarasimhareddychinna@gmail.com", "href": "mailto:mcnarasimhareddychinna@gmail.com"},
-    {"label": "Location", "text": "Puttaparthi, Andhra Pradesh"},
-    {"label": "GitHub", "text": "github.com/mcnarasimhareddychinna", "href": "https://github.com/mcnarasimhareddychinna"}
+    {
+      "label": "Phone",
+      "text": "+91 83285 01078",
+      "href": "tel:+918328501078"
+    },
+    {
+      "label": "Email",
+      "text": "mcnarasimhareddychinna@gmail.com",
+      "href": "mailto:mcnarasimhareddychinna@gmail.com"
+    },
+    {
+      "label": "Location",
+      "text": "Puttaparthi, Andhra Pradesh"
+    },
+    {
+      "label": "Portfolio",
+      "text": "Portfolio: narasimha-six.vercel.app",
+      "href": "https://narasimha-six.vercel.app",
+      "row": 2
+    },
+    {
+      "label": "GitHub",
+      "text": "github.com/mcnarasimhareddychinna",
+      "href": "https://github.com/mcnarasimhareddychinna",
+      "row": 2
+    }
   ],
   "summary": "MBA student specializing in Human Resource Management and Marketing at Sanskrithi School of Business, Puttaparthi, with 6 months of hands-on experience as an HR Recruiter Intern at Job Hunter, Bengaluru. Practical knowledge in talent acquisition and recruitment across the end-to-end hiring process, including candidate sourcing on Naukri and LinkedIn, resume screening and shortlisting, interview scheduling and coordination, and candidate database management. Brings a data-driven approach to hiring from a Data Analyst internship using MS Excel, SQL, Python and Power BI.",
   "skills": [
-    {"label": "Recruitment & Talent Acquisition", "items": "Candidate Sourcing (Naukri, LinkedIn), Resume Screening & Shortlisting, Interview Scheduling & Coordination, Candidate Database Management, Onboarding & Documentation"},
-    {"label": "Programming & Databases", "items": "Python (NumPy, Pandas), Oracle SQL"},
-    {"label": "Tools", "items": "Power BI (DAX), MS Excel (Pivot Tables, Formulas), MS Word"}
+    {
+      "label": "Recruitment & Talent Acquisition",
+      "items": "Candidate Sourcing (Naukri, LinkedIn), Resume Screening & Shortlisting, Interview Scheduling & Coordination, Candidate Database Management, Onboarding & Documentation"
+    },
+    {
+      "label": "Programming & Databases",
+      "items": "Python (NumPy, Pandas), Oracle SQL"
+    },
+    {
+      "label": "Tools",
+      "items": "Power BI (DAX), MS Excel (Pivot Tables, Formulas), MS Word"
+    }
   ],
   "soft_skills": "Effective Communication | Time Management | Teamwork & Coordination | Problem Solving & Adaptability",
   "experience": [
@@ -55,10 +86,30 @@
     }
   ],
   "education": [
-    {"degree": "Master of Business Administration (MBA) – Human Resource Management & Marketing", "school": "Sanskrithi School of Business, Puttaparthi, Andhra Pradesh", "dates": "2026 – 2028", "result": "Pursuing"},
-    {"degree": "Bachelor of Business Administration (BBA)", "school": "Sri Krishnadevaraya University (S K University), Anantapur, Andhra Pradesh", "dates": "", "result": "CGPA: 7.02"},
-    {"degree": "Intermediate (Class XII) – BiPC", "school": "APR Junior College, Kodigenahalli, Andhra Pradesh", "dates": "", "result": "80.2%"},
-    {"degree": "SSC (Class X)", "school": "APR School of Excellence, Kodigenahalli, Andhra Pradesh", "dates": "", "result": "79.6%"}
+    {
+      "degree": "Master of Business Administration (MBA) – Human Resource Management & Marketing",
+      "school": "Sanskrithi School of Business, Puttaparthi, Andhra Pradesh",
+      "dates": "2026 – 2028",
+      "result": "Pursuing"
+    },
+    {
+      "degree": "Bachelor of Business Administration (BBA)",
+      "school": "Sri Krishnadevaraya University (S K University), Anantapur, Andhra Pradesh",
+      "dates": "",
+      "result": "CGPA: 7.02"
+    },
+    {
+      "degree": "Intermediate (Class XII) – BiPC",
+      "school": "APR Junior College, Kodigenahalli, Andhra Pradesh",
+      "dates": "",
+      "result": "80.2%"
+    },
+    {
+      "degree": "SSC (Class X)",
+      "school": "APR School of Excellence, Kodigenahalli, Andhra Pradesh",
+      "dates": "",
+      "result": "79.6%"
+    }
   ],
   "certifications": [
     "Data Analyst Certification – QSpiders, Basavanagudi, Bengaluru",

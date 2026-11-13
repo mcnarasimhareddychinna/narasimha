@@ -28,8 +28,15 @@ A fast static site with no build step and no dependencies: plain HTML, CSS and J
 
 After the first deploy:
 
-- Replace `assets/img/og-image.jpg` in the `og:image` meta tag of `index.html` with the full URL (for example `https://<your-domain>/assets/img/og-image.jpg`). LinkedIn and WhatsApp previews need an absolute URL.
-- Add the portfolio URL to the `contact` list in `tools/resume.json` and rebuild the resume.
+- Share tags, canonical URL and sitemap already point to https://narasimha-six.vercel.app. If the domain changes, update them in `index.html`, `sitemap.xml`, `robots.txt` and `tools/resume.json`.
+
+## Installable app (PWA)
+
+The site installs like an app on Android, iPhone, Windows and Mac, with no app store needed.
+
+- `manifest.webmanifest` holds the app name, icons (`assets/img/icons/`, built by `python tools/build_icons.py`), screenshots and shortcuts (Resume, Contact).
+- `sw.js` caches the pages, resume and images so the app opens offline. **When you change any precached file, bump `VERSION` in `sw.js`** and the `?v=` number on `styles.css` / `main.js` in `index.html` (and in the `PRECACHE` list).
+- `assets/js/main.js` shows an "Install app" suggestion card a few seconds after the page opens or once the visitor scrolls. Chrome, Edge and Samsung Internet show the system install prompt. iPhone/iPad shows the two Share → Add to Home Screen steps. "Not now" hides it for 7 days. "Install app" buttons also sit in the navigation, the phone menu and the footer.
 
 ## Updating the resume
 

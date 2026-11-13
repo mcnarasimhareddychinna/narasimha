@@ -34,12 +34,22 @@ e = html.escape
 
 
 # --------------------------------------------------------------------------- HTML
-def contact_html() -> str:
-    parts = []
+def contact_rows() -> list[list[dict]]:
+    rows: dict[int, list[dict]] = {}
     for c in DATA["contact"]:
-        text = e(c["text"])
-        parts.append(f'<a href="{e(c["href"])}">{text}</a>' if c.get("href") else f"<span>{text}</span>")
-    return ' <span class="sep">|</span> '.join(parts)
+        rows.setdefault(c.get("row", 1), []).append(c)
+    return [rows[k] for k in sorted(rows)]
+
+
+def contact_html() -> str:
+    lines = []
+    for row in contact_rows():
+        parts = []
+        for c in row:
+            text = e(c["text"])
+            parts.append(f'<a href="{e(c["href"])}">{text}</a>' if c.get("href") else f"<span>{text}</span>")
+        lines.append('<p class="contact">' + ' <span class="sep">|</span> '.join(parts) + "</p>")
+    return "\n  ".join(lines)
 
 
 def section(title: str, body: str) -> str:
@@ -82,10 +92,11 @@ def build_html() -> str:
     certs = bullets(d["certifications"])
 
     body = (
+        # Same order as the portfolio website: About, Experience, Skills, Project, Education
         section("Professional Summary", f'<p>{e(d["summary"])}</p>')
+        + section("Professional Experience", exp)
         + section("Technical Skills", skills)
         + section("Soft Skills", f'<p>{e(d["soft_skills"])}</p>')
-        + section("Professional Experience", exp)
         + section("Projects", proj)
         + section("Education", edu)
         + section("Certifications", certs)
@@ -101,6 +112,12 @@ def build_html() -> str:
 <meta name="author" content="Narasimha Reddy M C">
 <meta name="robots" content="index,follow">
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="canonical" href="https://narasimha-six.vercel.app/resume">
+<meta name="theme-color" content="#3446D4">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Narasimha">
 <style>
   @page {{ size: A4; margin: 10mm 13mm 9mm; }}
   * {{ box-sizing: border-box; }}
@@ -152,10 +169,15 @@ def build_html() -> str:
 <header>
   <h1>{e(d["name"])}</h1>
   <p class="headline">{e(d["headline"])}</p>
-  <p class="contact">{contact_html()}</p>
+  {contact_html()}
 </header>
 {body}
 </main>
+<script>
+  if ("serviceWorker" in navigator && (location.protocol === "https:" || ["localhost", "127.0.0.1"].includes(location.hostname))) {{
+    navigator.serviceWorker.register("/sw.js").catch(function () {{}});
+  }}
+</script>
 </body>
 </html>
 """
@@ -236,12 +258,46 @@ def build_docx(path: Path) -> None:
             p.paragraph_format.space_before = Pt(1)
             p.add_run(b)
 
+    def add_hyperlink(paragraph, url, text, size):
+        """Real clickable link in Word (plain text stays readable for ATS)."""
+        r_id = paragraph.part.relate_to(url, "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink", is_external=True)
+        link = OxmlElement("w:hyperlink")
+        link.set(qn("r:id"), r_id)
+        run = OxmlElement("w:r")
+        rpr = OxmlElement("w:rPr")
+        for tag, val in (("w:color", "1F2F9E"), ("w:sz", str(int(size.pt * 2)))):
+            el = OxmlElement(tag)
+            el.set(qn("w:val"), val)
+            rpr.append(el)
+        run.append(rpr)
+        t = OxmlElement("w:t")
+        t.text = text
+        t.set(qn("xml:space"), "preserve")
+        run.append(t)
+        link.append(run)
+        paragraph._p.append(link)
+
     para(d["name"], bold=True, size=22, align=WD_ALIGN_PARAGRAPH.CENTER)
     para(d["headline"], bold=True, size=11, color=blue, align=WD_ALIGN_PARAGRAPH.CENTER, space_before=2)
-    para(" | ".join(c["text"] for c in d["contact"]), size=10, align=WD_ALIGN_PARAGRAPH.CENTER, space_before=2)
+    for n, row_items in enumerate(contact_rows()):
+        cp = para(align=WD_ALIGN_PARAGRAPH.CENTER, space_before=2 if n == 0 else 0)
+        for i, c in enumerate(row_items):
+            if i:
+                cp.add_run(" | ").font.size = Pt(10)
+            if c.get("href"):
+                add_hyperlink(cp, c["href"], c["text"], Pt(10))
+            else:
+                cp.add_run(c["text"]).font.size = Pt(10)
 
     heading("Professional Summary")
     para(d["summary"])
+
+    heading("Professional Experience")
+    for j in d["experience"]:
+        row(j["title"], j["dates"], space_before=4)
+        org = " | ".join(x for x in (j["company"], j["location"]) if x)
+        para(org, italic=True)
+        bullet_list(j["bullets"])
 
     heading("Technical Skills")
     for s in d["skills"]:
@@ -251,13 +307,6 @@ def build_docx(path: Path) -> None:
 
     heading("Soft Skills")
     para(d["soft_skills"])
-
-    heading("Professional Experience")
-    for j in d["experience"]:
-        row(j["title"], j["dates"], space_before=4)
-        org = " | ".join(x for x in (j["company"], j["location"]) if x)
-        para(org, italic=True)
-        bullet_list(j["bullets"])
 
     heading("Projects")
     for pj in d["projects"]:

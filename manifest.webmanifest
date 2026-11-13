@@ -1,0 +1,30 @@
+{
+  "id": "/",
+  "name": "Narasimha Reddy M C | HR Recruiter Portfolio",
+  "short_name": "Narasimha",
+  "description": "Portfolio and resume of Narasimha Reddy M C: MBA (HR & Marketing), HR Recruiter with practical knowledge in talent acquisition and recruitment.",
+  "start_url": "/?source=app",
+  "scope": "/",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
+  "orientation": "any",
+  "background_color": "#f6f3ec",
+  "theme_color": "#3446d4",
+  "lang": "en-IN",
+  "dir": "ltr",
+  "categories": ["business", "productivity"],
+  "icons": [
+    { "src": "/assets/img/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/assets/img/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/assets/img/icons/maskable-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "/assets/img/icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "screenshots": [
+    { "src": "/assets/img/screenshots/phone.webp", "sizes": "780x1688", "type": "image/webp", "form_factor": "narrow", "label": "Portfolio home on a phone" },
+    { "src": "/assets/img/screenshots/desktop.webp", "sizes": "1440x900", "type": "image/webp", "form_factor": "wide", "label": "Portfolio home on a desktop" }
+  ],
+  "shortcuts": [
+    { "name": "Resume", "short_name": "Resume", "description": "Open the ATS-friendly resume", "url": "/resume.html?source=app", "icons": [{ "src": "/assets/img/icons/icon-192.png", "sizes": "192x192", "type": "image/png" }] },
+    { "name": "Contact", "short_name": "Contact", "description": "Email or call Narasimha", "url": "/?source=app#contact", "icons": [{ "src": "/assets/img/icons/icon-192.png", "sizes": "192x192", "type": "image/png" }] }
+  ]
+}

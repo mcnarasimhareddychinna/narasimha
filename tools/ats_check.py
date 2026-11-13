@@ -16,7 +16,7 @@ ROOT = Path(__file__).resolve().parent.parent
 PDF = ROOT / "assets/files/Narasimha_Reddy_MC_Resume.pdf"
 DOCX = ROOT / "assets/files/Narasimha_Reddy_MC_Resume.docx"
 
-SECTIONS = ["PROFESSIONAL SUMMARY", "TECHNICAL SKILLS", "SOFT SKILLS", "PROFESSIONAL EXPERIENCE",
+SECTIONS = ["PROFESSIONAL SUMMARY", "PROFESSIONAL EXPERIENCE", "TECHNICAL SKILLS", "SOFT SKILLS",
             "PROJECTS", "EDUCATION", "CERTIFICATIONS"]
 KEYWORDS = [
     "HR Recruiter", "Talent Acquisition", "Recruitment", "end-to-end", "Candidate Sourcing", "Naukri",
@@ -46,6 +46,9 @@ check(all(p >= 0 for p in pos), "all standard section headings present")
 check(pos == sorted(pos), "sections extract in reading order")
 check(bool(re.search(r"[\w.]+@gmail\.com", text)), "email parseable")
 check(bool(re.search(r"\+91 \d{5} \d{5}", text)), "phone parseable")
+check("narasimha-six.vercel.app" in text, "portfolio link in the text")
+links = [l.get("uri", "") for pg in doc for l in pg.get_links()]
+check(any(u.rstrip("/") == "https://narasimha-six.vercel.app" for u in links), "portfolio link is clickable in the PDF")
 check(text.lstrip().startswith("NARASIMHA REDDY M C"), "name is the first line")
 low = text.lower()
 missing = [k for k in KEYWORDS if k.lower() not in low]
@@ -54,8 +57,10 @@ meta = doc.metadata or {}
 check("Narasimha" in (meta.get("title") or ""), f"PDF title metadata: {meta.get('title')}")
 
 d = Document(DOCX)
-dtext = "\n".join(p.text for p in d.paragraphs)
+dtext = "\n".join("".join(n.text or "" for n in p._p.iter() if n.tag.endswith("}t")) for p in d.paragraphs)
 check(len(d.tables) == 0, "DOCX has no tables")
+rels = [r.target_ref for r in d.part.rels.values() if "hyperlink" in r.reltype]
+check("https://narasimha-six.vercel.app" in rels, "portfolio link is clickable in the DOCX")
 check(not d.sections[0].header.paragraphs[0].text.strip(), "DOCX header is empty (contact info in body)")
 check(all(s.lower() in dtext.lower() for s in SECTIONS), "DOCX has all sections")
 dmiss = [k for k in KEYWORDS if k.lower() not in dtext.lower()]
